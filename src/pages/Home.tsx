@@ -109,7 +109,7 @@ const Home = () => {
                   id="search-input"
                   value={query}
                   onChange={(e)=>setQuery(e.target.value)}
-                  placeholder="Enter keywords, e.g., contract breach..."
+                  placeholder="Enter keywords, e.g., title,description, category, year..."
                   className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 />
 
