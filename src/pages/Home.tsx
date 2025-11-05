@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiRequest } from "../utils/baseApi";
+import { toast } from "react-toastify";
 
 // const documents = [
 //     {
@@ -66,18 +67,15 @@ const Home = () => {
 
 
   const searchDocs = async()=>{
-    // if (!query.trim()) return;
     setIsLoading(true);
-
      try {
         const response = await apiRequest('GET',`/documents?search=${query.trim()}`);
         setDocuments(response?.data);
-     } catch (error) {
-        console.log(error)
+     } catch (error: any) {
+        toast.error(error?.response?.data?.message);
+     }finally{
+       setIsLoading(false);
      }
-
-    setIsLoading(false);
-    console.log("Searching for:", query);
   };
 
   useEffect(()=>{
@@ -105,8 +103,8 @@ const Home = () => {
               </p>
             </div>
 
-                <form action="" onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row gap-4 mt-6">
-                    <input
+            <form action="" onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row gap-4 mt-6">
+                <input
                   type="text"
                   id="search-input"
                   value={query}
@@ -122,15 +120,26 @@ const Home = () => {
                 >
                     Search
                 </button>
-                </form>
+            </form>
           
         </div>
+      {
+        isLoading && 
+        <div className="text-center w-full mt-20">
+            <h1 className="text-xl">Loading...</h1>
+        </div>
+      }
+
+      {
+        !isLoading && !documents.length &&
+        <div className="text-center w-full mt-20">
+            <h1 className="text-xl">Documents is not found</h1>
+        </div>
+      }
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
-      {isLoading ? 
-        <div className="text-center mt-20">
-            <h1 className="text-xl">Loading...</h1>
-        </div> : documents.map((doc, index) => (
+      {!isLoading &&
+        documents.map((doc, index) => (
         <div
           key={index}
           className="bg-white rounded-lg border border-neutral-300 
@@ -150,4 +159,4 @@ const Home = () => {
     </section>)
 }
 
-export default Home
+export default Home;
