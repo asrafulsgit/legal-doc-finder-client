@@ -2,8 +2,9 @@
 
 **Project Name:** LegalDocFinder  
 
-  
-**Live URL:** _[https://legal-doc-finder-server.vercel.app]_
+
+
+**Live URL:** _[https://legal-doc-finder.netlify.app]_
 **Server source code:** _[https://github.com/asrafulsgit/legal-doc-finder-server]_
 
 ---
